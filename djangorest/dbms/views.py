@@ -39,11 +39,11 @@ def database_create(request):
 #stream to python
         pythondata = JSONParser().parse(stream)
         #pthon to complex or to  table type
-        deserializer= databaseSerializer(data = pythondata)
-        if deserializer.is_valid:
-            deserializer.save()
+        serializer= databaseSerializer(data = pythondata)
+        if serializer.is_valid():
+            serializer.save()
             res ={'msg':'Success'}
             json_data= JSONRenderer().render(res)
             return HttpResponse(json_data,content_type='application/json')
-        json_data=JSONRenderer().render(deserializer.erros)
+        json_data=JSONRenderer().render(serializer.erros)
         return HttpResponse(json_data,content_type='application/json')
